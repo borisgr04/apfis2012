@@ -1,0 +1,130 @@
+﻿<%@ Page Title="" Language="VB" MasterPageFile="~/MasterPage.master" AutoEventWireup="false" CodeFile="Categorias.aspx.vb" Inherits="DatosBasicos_Categorias_Default" %>
+
+<%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+    <div class="demoarea">
+        <ajaxToolkit:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server">
+        </ajaxToolkit:ToolkitScriptManager>
+        <asp:Label ID="Label1" runat="server" CssClass="Titulo" Text="Categorias"></asp:Label>
+        <br />
+
+        <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+        <ContentTemplate>
+            <asp:ValidationSummary ID="ValidationSummary1" runat="server" 
+                DisplayMode="List" SkinID="ValidationSummary1" Width="538px" />
+            <asp:Label ID="MsgResult" runat="server" SkinID="MsgResult"></asp:Label>
+            <br />
+            <telerik:RadGrid ID="RadGrid1" runat="server" AllowAutomaticDeletes="True" 
+                AllowAutomaticInserts="True" AllowAutomaticUpdates="True" AllowPaging="True" 
+                AutoGenerateColumns="False" CellSpacing="0" DataSourceID="ObjCat" 
+                GridLines="None" Skin="Web20" ShowStatusBar="True" Width="599px">
+                <PagerStyle Mode="NextPrevAndNumeric" />
+                <MasterTableView AutoGenerateColumns="False" CommandItemDisplay="Top" CommandItemSettings-AddNewRecordText="Agregar Nuevo Item" 
+                    DataKeyNames="Cod_Cat" DataSourceID="ObjCat" HorizontalAlign="NotSet" 
+                    Width="100%" ShowFooter="true" 
+                    CommandItemSettings-RefreshText="Actualizar" 
+                    NoDetailRecordsText="No existen Items registrados" 
+                    FooterStyle-ForeColor="DodgerBlue" 
+                    NoMasterRecordsText="No existen Items registrados para el presupuesto del Proceso">
+                    <CommandItemSettings ExportToPdfText="Export to PDF" />
+                    <RowIndicatorColumn FilterControlAltText="Filter RowIndicator column">
+                    </RowIndicatorColumn>
+                    <ExpandCollapseColumn FilterControlAltText="Filter ExpandColumn column">
+                    </ExpandCollapseColumn>
+                    <Columns>
+                        <telerik:GridEditCommandColumn ButtonType="ImageButton" 
+                            UniqueName="EditCommandColumn">
+                            <ItemStyle CssClass="MyImageButton" />
+                        </telerik:GridEditCommandColumn>
+                        <telerik:GridTemplateColumn HeaderText="Descripcion" 
+                            SortExpression="Descripcion" UniqueName="TemplateColumn2"
+                        EditFormColumnIndex="0">
+                        <ItemTemplate>
+                            <asp:Label runat="server" ID="lblCOD" Text='<%# Eval("Cod_Cat") %>'></asp:Label>
+                        </ItemTemplate>
+                        <EditItemTemplate>
+                            <span><telerik:RadTextBox runat="server" ID="tbCod" Width="300px" Text='<%# Bind("Cod_Cat") %>'></telerik:RadTextBox><span
+                            style="color: Red"><asp:RequiredFieldValidator ID="RequiredFieldValidator5" ControlToValidate="tbDesc"
+                            ErrorMessage="EL Código de la categoria es requerido" runat="server" Text="*" >
+                                </asp:RequiredFieldValidator></span>
+                        </EditItemTemplate>
+                    </telerik:GridTemplateColumn>
+                        <telerik:GridTemplateColumn HeaderText="Descripcion" 
+                            SortExpression="Descripcion" UniqueName="TemplateColumn2"
+                        EditFormColumnIndex="0">
+                        <ItemTemplate>
+                            <asp:Label runat="server" ID="lblDESC" Text='<%# Eval("Des_Cat") %>'></asp:Label>
+                        </ItemTemplate>
+                        <EditItemTemplate>
+                            <span><telerik:RadTextBox runat="server" ID="tbDesc" Width="300px" Text='<%# Bind("Des_Cat") %>'></telerik:RadTextBox><span
+                            style="color: Red"><asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="tbDesc"
+                            ErrorMessage="EL nombre de la categoria es requerido" runat="server" Text="*" >
+                                </asp:RequiredFieldValidator></span>
+                        </EditItemTemplate>
+                    </telerik:GridTemplateColumn>
+                        <%--<telerik:GridNumericColumn DataField="Valor_Unit" DecimalDigits="2" 
+                            FilterControlAltText="Filter VrUnit column" HeaderText="Valor Unitario" 
+                            SortExpression="Valor_Unit" UniqueName="VrUnit">
+                        </telerik:GridNumericColumn>--%>
+                        <%--<telerik:GridNumericColumn DataField="Porc_Iva" DecimalDigits="2" 
+                            FilterControlAltText="Filter Porc_Iva column" HeaderText="Porcentaje IVA(%)" 
+                            SortExpression="Porc_Iva" UniqueName="Porc_Iva">
+                        </telerik:GridNumericColumn>--%>
+                        <%--<telerik:GridNumericColumn DataField="Valor_Parcial" DecimalDigits="2" DataFormatString="{0:C}" 
+                            FilterControlAltText="Filter Porc_Iva column" HeaderText="Valor Parcial" 
+                            SortExpression="Valor_Parcial" UniqueName="Valor_Parcial" Aggregate="Count" FooterText="Total Items: " ReadOnly="true">
+                        </telerik:GridNumericColumn>--%>
+                        <telerik:GridButtonColumn ButtonType="ImageButton" CommandName="Eliminar" 
+                            ConfirmDialogType="RadWindow" 
+                            ConfirmText="Realmente desea Eliminar este Item?" ConfirmTitle="Eliminar" 
+                            Text="Eliminar" UniqueName="DeleteColumn" ImageUrl="~/images/Operaciones/delete2.png">
+                            <ItemStyle CssClass="MyImageButton" HorizontalAlign="Center" />
+                        </telerik:GridButtonColumn>
+                    </Columns>
+                    <EditFormSettings CaptionDataField="Des_Cat" 
+                        CaptionFormatString="Editar Propiedades del Registro {0}" ColumnNumber="2" 
+                        InsertCaption="Nuevo Item">
+                        <FormTableItemStyle Wrap="False" />
+                        <FormCaptionStyle CssClass="EditFormHeader" />
+                        <FormMainTableStyle BackColor="White" CellPadding="3" CellSpacing="0" 
+                            GridLines="None" Width="100%" />
+                        <FormTableStyle BackColor="White" CellPadding="2" CellSpacing="0" 
+                            Height="110px" />
+                            
+                        <FormTableAlternatingItemStyle Wrap="False" />
+                        <EditColumn ButtonType="ImageButton" CancelText="Cancelar" 
+                            InsertText="Insertar" UniqueName="EditCommandColumn1" UpdateText="Actualizar">
+                        </EditColumn>
+                        <FormTableButtonRowStyle CssClass="EditFormButtonRow" HorizontalAlign="Right" />
+                    </EditFormSettings>
+                    <FooterStyle ForeColor="DodgerBlue" />
+                </MasterTableView>
+                <FilterMenu EnableImageSprites="False">
+                </FilterMenu>
+                <HeaderContextMenu CssClass="GridContextMenu GridContextMenu_Default">
+                </HeaderContextMenu>
+            </telerik:RadGrid>
+            <asp:ObjectDataSource ID="ObjCat" runat="server" 
+                OldValuesParameterFormatString="original_{0}" SelectMethod="GetRecordsDB" 
+                TypeName="Categorias" DeleteMethod="Delete" InsertMethod="Insert" 
+                UpdateMethod="Update">
+                <DeleteParameters>
+                    <asp:Parameter Name="Original_Cod_Cat" Type="String" />
+                </DeleteParameters>
+                <InsertParameters>
+                    <asp:Parameter Name="Cod_Cat" Type="String" />
+                    <asp:Parameter Name="Des_Cat" Type="String" />
+                </InsertParameters>
+                <UpdateParameters>
+                    <asp:Parameter Name="Des_Cat" Type="String" />
+                    <asp:Parameter Name="Cod_Cat" Type="String" />
+                    <asp:Parameter Name="Original_Cod_Cat" Type="String" />
+                </UpdateParameters>
+            </asp:ObjectDataSource>
+        </ContentTemplate>
+        </asp:UpdatePanel>
+    </div>
+    
+</asp:Content>
+

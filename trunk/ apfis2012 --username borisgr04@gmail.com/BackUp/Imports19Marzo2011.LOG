@@ -1,0 +1,39 @@
+
+Conectado a: Oracle Database 10g Express Edition Release 10.2.0.1.0 - Production
+
+Archivo de exportación creado por EXPORT:V10.02.01 a través de la ruta de acceso convencional
+importación realizada en el juego de caracteres WE8MSWIN1252 y el juego de caracteres NCHAR AL16UTF16
+. importando la tabla                        "ACTAS"       1600 filas importadas
+. importando la tabla                   "ACTASANEXO"        102 filas importadas
+. importando la tabla                    "ACTAS_ANU"         28 filas importadas
+. importando la tabla                    "AUDITORIA"      18808 filas importadas
+. importando la tabla                      "BODEGAS"          1 filas importadas
+. importando la tabla                     "CAP_PROD"         28 filas importadas
+. importando la tabla                     "CAT_PROD"          3 filas importadas
+. importando la tabla                     "CAUSALES"          7 filas importadas
+. importando la tabla                  "CGOPERATIVO"          6 filas importadas
+. importando la tabla                 "CONSECUTIVOS"          1 filas importadas
+. importando la tabla                     "ESTABLEC"       1328 filas importadas
+. importando la tabla                     "ESTACTAS"       4636 filas importadas
+. importando la tabla                      "ESTADOS"          6 filas importadas
+. importando la tabla                       "ESTPER"         23 filas importadas
+. importando la tabla                       "ESTREL"          7 filas importadas
+. importando la tabla                      "FMTOEST"          0 filas importadas
+. importando la tabla            "HTMLDB_PLAN_TABLE"          0 filas importadas
+. importando la tabla                    "INFRACTOR"       1397 filas importadas
+. importando la tabla                  "MOVIMIENTOS"       5857 filas importadas
+. importando la tabla                   "MUNICIPIOS"         25 filas importadas
+. importando la tabla                       "PAGAUT"        113 filas importadas
+. importando la tabla                     "PERFILES"        106 filas importadas
+. importando la tabla                    "PRODACTAS"       3317 filas importadas
+. importando la tabla                "PRODACTAS_ANU"         60 filas importadas
+. importando la tabla                      "PRODBOD"        442 filas importadas
+. importando la tabla                    "PRODUCTOS"        451 filas importadas
+. importando la tabla                   "RAUTORIDAD"        181 filas importadas
+. importando la tabla                      "RBODEGA"          4 filas importadas
+. importando la tabla                      "SALIDAS"       2420 filas importadas
+. importando la tabla                    "SCAT_PROD"         12 filas importadas
+. importando la tabla                       "TIPSAL"          4 filas importadas
+. importando la tabla                     "USUARIOS"         10 filas importadas
+Activando las restricciones...
+La importación ha terminado correctamente y sin advertencias.

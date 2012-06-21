@@ -1,0 +1,100 @@
+﻿Imports Microsoft.Reporting.WebForms
+Imports System.Data
+Imports System.IO
+
+Partial Class Consultas_Fondo_RptFondo
+    Inherits PaginaComun
+
+    Protected Sub ImageButton1_Click(ByVal sender As Object, ByVal e As System.Web.UI.ImageClickEventArgs) Handles ImgBtnBuscar.Click
+
+    End Sub
+
+    Protected Sub Page_Load1(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        If Not Page.IsPostBack Then
+            Me.Title = ConfigurationManager.AppSettings("NOMAPP")
+            Dim mes As String = Right("0" + Str(Month(Now()) - 1), 2)
+            Me.txtfecini.Text = "01/" + mes + "/2010"
+            Me.TxtFecFin.Text = "01/" + mes + "/2010"
+        End If
+    End Sub
+
+
+    Protected Sub GridView1_RowDataBound(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.GridViewRowEventArgs)
+        If e.Row.RowType = DataControlRowType.DataRow Then
+            ' ASIGNA EVENTOS
+            e.Row.Attributes.Add("OnMouseOver", "Resaltar_On(this);")
+            e.Row.Attributes.Add("OnMouseOut", "Resaltar_Off(this);")
+            '            e.Row.Attributes("OnClick") = Page.ClientScript.GetPostBackClientHyperlink(Me.GridView1, "Select$" + e.Row.RowIndex.ToString)
+        End If
+
+    End Sub
+
+    Protected Sub GridView2_RowDataBound(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.GridViewRowEventArgs)
+        If e.Row.RowType = DataControlRowType.DataRow Then
+            ' ASIGNA EVENTOS
+            e.Row.Attributes.Add("OnMouseOver", "Resaltar_On(this);")
+            e.Row.Attributes.Add("OnMouseOut", "Resaltar_Off(this);")
+            '            e.Row.Attributes("OnClick") = Page.ClientScript.GetPostBackClientHyperlink(Me.GridView1, "Select$" + e.Row.RowIndex.ToString)
+        End If
+
+    End Sub
+
+
+    Public Sub ExportGridView(ByVal grd As GridView, Optional ByVal Archivo As String = "Export")
+        Dim attachment As String = String.Format("attachment; filename={0}.xls", Archivo)
+        Response.ClearContent()
+        Response.AddHeader("content-disposition", attachment)
+        Response.ContentType = "application/ms-excel"
+        Dim sw As New StringWriter()
+        Dim htw As New HtmlTextWriter(sw)
+        grd.RenderControl(htw)
+        Response.Write(sw.ToString())
+        Response.End()
+    End Sub
+
+    Protected Sub IBtnExcel_Click(ByVal sender As Object, ByVal e As System.Web.UI.ImageClickEventArgs) Handles IBtnExcel.Click
+        'ExportGridView(Me.GridView1, "Report")
+
+        Dim obj As ConActas = New ConActas
+        Dim dt As DataTable = obj.GetFondo(Me.txtfecini.Text, Me.TxtFecFin.Text)
+        Dim dtSource As ReportDataSource = New ReportDataSource("Report_VFONDODEP", dt)
+
+        ReportViewer1.LocalReport.DataSources.Clear()
+        ReportViewer1.LocalReport.DataSources.Add(dtSource)
+
+        Dim Parm(0) As ReportParameter
+        Parm(0) = New ReportParameter("Titulo", "Del " + (Me.txtfecini.Text) + " Al " + (Me.TxtFecFin.Text))
+        ReportViewer1.LocalReport.SetParameters(Parm)
+
+        Me.ReportViewer1.LocalReport.DisplayName = "B&ASystems"
+        Me.RenderReport(Me.ReportViewer1.LocalReport)
+
+        'Titulo
+
+
+    End Sub
+    Private Sub RenderReport(ByVal Rpt As LocalReport)
+        'string reportType = "Image"; 
+        Dim reportType As String = "EXCEL"
+        Dim fileNameExtension As String = ""
+        Dim warnings As Warning() = Nothing
+        Dim streamids As String() = Nothing
+        Dim mimeType As String = Nothing
+        Dim encoding As String = Nothing
+        Dim extension As String = Nothing
+        'The DeviceInfo settings should be changed based on the reportType 
+        'http://msdn2.microsoft.com/en-us/library/ms155397.aspx 
+        Dim deviceInfo As String = "<DeviceInfo>" & " <OutputFormat>PDF</OutputFormat>" & " <PageWidth>8.5in</PageWidth>" & " <PageHeight>11in</PageHeight>" & " <MarginTop>0.5in</MarginTop>" & " <MarginLeft>1in</MarginLeft>" & " <MarginRight>1in</MarginRight>" & " <MarginBottom>0.5in</MarginBottom>" & "</DeviceInfo>"
+        Dim streams As String() = Nothing
+        Dim renderedBytes As Byte()
+        'Render the report 
+        'deviceInfo, 
+        Rpt.Refresh()
+        renderedBytes = Rpt.Render(reportType, Nothing, mimeType, encoding, fileNameExtension, streams, warnings)
+        Response.Clear()
+        Response.ContentType = mimeType
+        Response.AddHeader("content-disposition", "attachment; filename=ReportFondo." & fileNameExtension)
+        Response.BinaryWrite(renderedBytes)
+        Response.End()
+    End Sub
+End Class

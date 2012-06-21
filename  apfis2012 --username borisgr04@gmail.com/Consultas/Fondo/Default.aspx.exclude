@@ -1,0 +1,266 @@
+<%@ Page Language="VB" AutoEventWireup="false" CodeFile="Default.aspx.vb" Inherits="Reportes_Fondo_Default" %>
+
+<%@ Register assembly="Microsoft.ReportViewer.WebForms, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" namespace="Microsoft.Reporting.WebForms" tagprefix="rsweb" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head id="Head1" runat="server">
+    <title>:: Aprehensiones y Fiscalización </title>
+    <script type="text/javascript">
+    function Resaltar_On(GridView)
+    {
+        if(GridView != null)
+        {
+           GridView.originalBgColor = GridView.style.backgroundColor;
+           GridView.style.backgroundColor="#DBE7F6";
+        }
+    }
+
+    function Resaltar_Off(GridView)
+    {
+        if(GridView != null)
+        {
+            GridView.style.backgroundColor = GridView.originalBgColor;
+        }
+    }
+    </script>
+    
+    <style>
+    .laterali
+    {
+        background-image: url(../../images/bg1222.jpg);
+        background-position:right top; 
+        background-repeat:repeat-y;
+        width: 50%;
+    }
+    .laterald2
+    {
+        background-image: url(../../images/bg1223.jpg);
+        height: 40px;
+        background-color: transparent;
+        color: White;
+        font-weight: bolder;
+        width: 50%;
+    }
+    .laterald
+    {
+        background-image: url(../../images/bg1223.jpg);
+        background-position:right left; 
+        background-repeat:repeat-y; 
+        width: 50%;
+    }
+    .Loading {
+            background-color:#CF4342;
+            color:#fff;
+            top:0px;
+            right:0px;
+            position:fixed;
+            }
+            .Loading img {
+            vertical-align:middle;
+            margin:1px;
+            }
+    
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div style="font-size: 8pt; font-family: Verdana" >
+           <table class="main" cellspacing="0" cellpadding="0" width="100%;heigth:600px"  >
+               <tr class="header">
+                   <td class="laterali" colspan="1" rowspan="2" >
+                       &nbsp;</td>
+                   <td class="header" colspan="1" style="height: 18px; width: 800px;">
+                   <div id="Head" style="height: 1px">
+                       &nbsp;&nbsp;
+                       <img src="../../Images/Banner3.jpg" alt="Estado de Cuenta" />&nbsp;
+                    </div>
+                       <ajaxToolkit:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server" EnableScriptGlobalization="true"
+                           EnableScriptLocalization="true">
+                       </ajaxToolkit:ToolkitScriptManager>
+                       <br />
+                       <br />
+                       <br />
+                       <br />
+                       <br />
+                       <br />
+                       <br />
+                       <br />
+                       <br />
+                       <br />
+                       <br />
+                       <br />
+                       <br />
+                       <br />
+                       <br />
+                       <br />
+                   </td>
+                   <td class="laterald" colspan="1" rowspan="2" style="width: 46%"  >
+                   </td>
+               </tr>
+               <tr valign="top">
+                <td class="body" style="width: 904px; height: 13px;">
+                    &nbsp;
+                       <hr style="width: 1101px" />
+                       <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                           <ContentTemplate>
+                               <table>
+                                   <tr>
+                                       <td colspan="11" style="height: 20px; text-align: center;">
+                                           &nbsp;</td>
+                                   </tr>
+                                   <tr>
+                                       <td colspan="11" style="height: 20px; text-align: center;">
+                                           <strong>CONSULTA DE APREHENSIONES </strong>
+                                       </td>
+                                   </tr>
+                                   <tr>
+                                       <td style="width: 100px">
+                                           PERIODO DE APREHENSIÓN&nbsp;</td>
+                                       <td style="width: 169px">
+                                           </td>
+                                       <td style="width: 100px">
+                                           </td>
+                                       <td style="width: 100px">
+                                           Fecha Inicial</td>
+                                       <td style="width: 100px">
+                                           <asp:TextBox ID="txtfecini" runat="server"></asp:TextBox></td>
+                                       <td style="width: 298px">
+                                           <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtfecini"
+                                               ErrorMessage="Se requiere Fecha Inicial">*</asp:RequiredFieldValidator></td>
+                                       <td style="width: 298px">
+                                           Fecha Final</td>
+                                       <td style="width: 385px">
+                                           <asp:TextBox ID="TxtFecFin" runat="server"></asp:TextBox></td>
+                                       <td style="width: 385px">
+                                           <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="TxtFecFin"
+                                               ErrorMessage="Se requiere Fecha Final">*</asp:RequiredFieldValidator>
+                                           <asp:ImageButton ID="ImgBtnBuscar" runat="server" ImageUrl="~/Images/search4.png"
+                                               OnClick="ImageButton1_Click" ToolTip="Consulte sus pagos en linea" />
+                                       </td>
+                                       <td style="width: 385px">
+                                           <asp:ImageButton ID="IBtnExcel" runat="server" Height="33px" 
+                                               ImageUrl="~/Images/excel2007.gif" Width="39px" />
+                                           </td>
+                                       <td style="width: 385px">
+                                           </td>
+                                   </tr>
+                                   <tr>
+                                       <td style="height: 21px; text-align: center;" colspan="11">
+                                           <asp:Label ID="LbNombre" runat="server" Font-Bold="True" Font-Size="10pt" Width="100%"></asp:Label></td>
+                                   </tr>
+                               </table>
+                               <asp:ValidationSummary ID="ValidationSummary1" runat="server" />
+                               &nbsp;&nbsp;<br />
+                               
+                               <asp:GridView ID="GridView1" runat="server" AllowSorting="True" BackColor="White"
+                                   BorderColor="#336666" BorderStyle="Double" BorderWidth="3px" CellPadding="4"
+                                   DataKeyNames="NROACTA" DataSourceID="ObjA" Font-Size="7pt" 
+                                   GridLines="Horizontal" AllowPaging="True" 
+                                   OnRowDataBound="GridView1_RowDataBound" Width="100%">
+                                   <RowStyle BackColor="White" ForeColor="#333333" />
+                                   <Columns>
+                                       <asp:CommandField ShowSelectButton="True" SelectText="Ver ..." />
+                                   </Columns>
+                                   <FooterStyle BackColor="White" ForeColor="#333333" />
+                                   <PagerStyle BackColor="#336666" ForeColor="White" HorizontalAlign="Center" />
+                                   <SelectedRowStyle BackColor="#339966" Font-Bold="True" ForeColor="White" />
+                                   <HeaderStyle BackColor="#336666" Font-Bold="True" ForeColor="White" />
+                               </asp:GridView>
+                               
+                               <asp:ObjectDataSource ID="ObjA" runat="server" OldValuesParameterFormatString="original_{0}"
+                                   SelectMethod="GetFondo" TypeName="ApFis">
+                                   <SelectParameters>
+                                       <asp:ControlParameter ControlID="txtfecini" Name="fecha_ini" PropertyName="Text"
+                                           Type="DateTime" />
+                                       <asp:ControlParameter ControlID="TxtFecFin" Name="fecha_fin" PropertyName="Text"
+                                           Type="DateTime" />
+                                   </SelectParameters>
+                               </asp:ObjectDataSource>
+                               <asp:GridView ID="GridView2" runat="server" BackColor="White" BorderColor="#336666"
+                                   BorderStyle="Double" BorderWidth="3px" CellPadding="4" DataSourceID="ObjD" GridLines="Horizontal" Caption="LISTADO DE PRODUCTOS" Font-Size="7pt" OnRowDataBound="GridView2_RowDataBound" Width="100%">
+                                   <RowStyle BackColor="White" ForeColor="#333333" />
+                                   <FooterStyle BackColor="White" ForeColor="#333333" />
+                                   <PagerStyle BackColor="#336666" ForeColor="White" HorizontalAlign="Center" />
+                                   <SelectedRowStyle BackColor="#339966" Font-Bold="True" ForeColor="White" />
+                                   <HeaderStyle BackColor="#336666" Font-Bold="True" ForeColor="White" />
+                               </asp:GridView>
+                               <asp:ObjectDataSource ID="ObjD" runat="server" OldValuesParameterFormatString="original_{0}"
+                                   SelectMethod="GetDRecords" TypeName="ApFis">
+                                   <SelectParameters>
+                                       <asp:ControlParameter ControlID="GridView1" Name="NroActa" PropertyName="SelectedValue"
+                                           Type="String" />
+                                   </SelectParameters>
+                               </asp:ObjectDataSource>
+                               &nbsp;<br />
+                               <ajaxToolkit:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtfecini">
+                               </ajaxToolkit:CalendarExtender>
+                               <ajaxToolkit:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="txtfecfin">
+                               </ajaxToolkit:CalendarExtender>
+                               <br />
+                               <br />
+                               <br />
+                               <br />
+                               <br />
+                               <br />
+                               <br />
+                               <br />
+                               <br />
+                               <br />
+                               <br />
+                               <br />
+                               <br />
+                               <br />
+                               <br />
+                               <br />
+                               <br />
+                               <br />
+                               <br />
+                               <br />
+                               <br />
+                               <br />
+                               <br />
+                               <br />
+                               <br />
+                               <br />
+                               <br />
+                               <br />
+                               <br />
+                               <br />
+                               <br />
+                               <br />
+                               <br />
+                               <br />
+                               <br />
+                               <br />
+                           </ContentTemplate>
+                           <Triggers>
+                               <asp:PostBackTrigger ControlID="IBtnExcel" />
+                           </Triggers>
+                       </asp:UpdatePanel>
+                    
+                </td>
+            </tr>
+        </table>
+    </div>
+        <asp:UpdateProgress ID="UpdateProgress1" runat="server" AssociatedUpdatePanelID="UpdatePanel1">
+            <ProgressTemplate>
+                <div class="Loading">
+                    <img alt="" src="../images/loading.gif" title="" />
+                    Cargando …
+                </div>
+            </ProgressTemplate>
+        </asp:UpdateProgress>
+    <br />
+    <div style="z-index: 101; left: 0px; visibility: hidden; overflow: auto; width: 100px;
+            position: absolute; top: 0px; height: 100px">
+    <rsweb:ReportViewer ID="ReportViewer1" runat="server" Font-Names="Verdana" 
+        Font-Size="8pt" Height="400px" Width="400px">
+        <LocalReport ReportPath="Fondo.rdlc">
+        </LocalReport>
+    </rsweb:ReportViewer>
+    </div>
+    </form>
+</body>
+</html>

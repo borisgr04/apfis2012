@@ -1,0 +1,5 @@
+﻿
+Partial Class Reportes_Fondo_Report
+    Inherits System.Web.UI.Page
+
+End Class

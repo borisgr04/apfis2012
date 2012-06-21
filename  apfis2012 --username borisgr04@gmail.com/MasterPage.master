@@ -1,0 +1,69 @@
+﻿<%@ Master Language="VB" CodeFile="MasterPage.master.vb" Inherits="MasterPage" %>
+
+<%@ Register assembly="Telerik.Web.UI" namespace="Telerik.Web.UI" tagprefix="telerik" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>SIRCC</title>
+    <asp:ContentPlaceHolder id="head" runat="server">
+    </asp:ContentPlaceHolder>
+  
+   <%-- <link rel="shortcut icon" href="imagenes/favicon.ico" />--%>
+    <link type="text/css" href="StylePageMaster.css" rel="stylesheet" media="all" />
+    
+    <style type="text/css">
+        #fulgor
+        {
+            height: 575px;
+        }
+    </style>
+    
+</head>
+
+    <body>
+        
+        
+            <form id="form2" runat="server">
+     <ajaxToolkit:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server">
+                                                </ajaxToolkit:ToolkitScriptManager>
+               <div id="contenedor-general">
+                    <div id="header">
+                       <div id="barra-modulo-activo"></div>
+                        <div id="barra-modulos"></div>
+                    </div>
+                            <div id="barra_menu">                           
+                            
+                                <telerik:RadMenu ID="RadMenu1" Runat="server" Width="100%" Skin="Web20">
+                                </telerik:RadMenu>
+                            
+                            </div>
+                            <div id="barra-infologin">
+                            <asp:LoginName ID="LoginName1" runat="server" FormatString="Bienvenid@ {0}" />
+                            <asp:Label ID="LbTer" runat="server"></asp:Label>
+                            <asp:LoginStatus ID="LoginStatus1" runat="server" LogoutPageUrl="~/Publico/Logout.aspx" 
+                            ToolTip="Cierra la Sesión del Usuario actual" />
+                            </div>
+       		                        <div id="contenido"> 
+                                        <div id="contenido2">                                
+       		                    		       
+                                            <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
+                         
+                        
+                                                
+                         
+                        
+                                            </asp:ContentPlaceHolder>
+                 
+       		         
+       		                              </div>
+                                       </div>
+                       <div id="sombraFooder"></div>
+       			    <div id="fooder"></div>
+               </div>
+       
+                
+         </form>
+    </body>
+</html>
